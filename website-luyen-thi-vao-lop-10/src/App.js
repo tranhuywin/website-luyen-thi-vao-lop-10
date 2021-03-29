@@ -11,7 +11,7 @@ function App() {
     	<Grid container spacing={1}>
         
     		<Grid item xs={12}>
-                <HomeTab/>
+                <HomeTab />
         	</Grid>
         	<Grid item xs={3}>
 				<VerticalTabs/>
