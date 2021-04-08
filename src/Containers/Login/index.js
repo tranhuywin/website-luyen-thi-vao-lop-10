@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
-
 function Login() {
     const [typePassword, setTypePassword] = useState('password');
-    function AuthLogin() {
-        //TODO
+    function handleLogin() {
+        console.log('go to homepage');
     }
-    function TooglePassword() {
+    function handleTooglePassword() {
         if (typePassword === 'text')
             setTypePassword('password')
         else
@@ -27,7 +26,7 @@ function Login() {
                         <input type={typePassword} name="password" className="form-control" id="password"
                             placeholder="Mật khẩu" data-toogle="password" />
                         <div className="input-group-append">
-                            <button type="button" className="input-group-text" onClick={TooglePassword}>
+                            <button type="button" className="input-group-text" onClick={handleTooglePassword}>
                                 <i className={typePassword !== "password" ? "bi bi-eye" : "bi bi-eye-slash"}></i></button>
                         </div>
 
@@ -40,11 +39,11 @@ function Login() {
                 </form>
             </div>
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-4 m-auto">
-                <h6 className="label text-center mt-2">or</h6>
+                <h6 className="label text-center mt-2">hoặc</h6>
                 <button
                     type="button"
                     className="btn btn-default border form-control mt-2"
-                    onClick={AuthLogin}
+                    onClick={handleLogin}
                 >
                     <i className="bi bi-google mr-1"></i>
                 Đăng nhập với Google
