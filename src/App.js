@@ -1,5 +1,5 @@
 import React from 'react';
-import FillInExamInformation from './Containers/Post-the-exam/Fill-in-exam-information';
+import CreateQuestion from './Containers/Post-the-exam/Create-Questions';
 import SideNav from './Containers/SideNav';
 import "./App.css";
 
@@ -13,7 +13,7 @@ function App() {
 					</div>
 
 					<div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-						<FillInExamInformation></FillInExamInformation>
+						<CreateQuestion></CreateQuestion>
 					</div>
 				</div>
 			</div>
