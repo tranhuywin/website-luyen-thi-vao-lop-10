@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Quill from '../../../Components/Post-the-exam/Quill';
-import Answer from '../../../Components/Post-the-exam/Answer';
+import Answer from '../../../Components/Post-the-exam/CreateMultipleChoiceAnswer';
 
 export default function CreateQuestion() {
     const [valueQuestionQuill, setValueQuestionQuill] = useState('');

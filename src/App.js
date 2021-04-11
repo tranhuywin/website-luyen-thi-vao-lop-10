@@ -1,5 +1,6 @@
 import React from 'react';
 import CreateQuestion from './Containers/Post-the-exam/Create-Questions';
+import PreviewTheExam from './Containers/Post-the-exam/Preview-the-exam';
 import SideNav from './Containers/SideNav';
 import "./App.css";
 
@@ -13,7 +14,7 @@ function App() {
 					</div>
 
 					<div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-						<CreateQuestion></CreateQuestion>
+						<PreviewTheExam></PreviewTheExam>
 					</div>
 				</div>
 			</div>
