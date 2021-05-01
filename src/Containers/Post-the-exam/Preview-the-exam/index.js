@@ -1,40 +1,42 @@
-import React from 'react'
-import Question from '../../../Components/Post-the-exam/Questions'
-export default function PreviewTheExam() {
-    const ramdomTextAnswer = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.'
-    const ramdomTextQuestion = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?'
+import Question from '../../../Components/Post-the-exam/Questions';
+import firebase from '../../.././firebase';
+import { useSelector } from 'react-redux';
+import { useHistory } from "react-router";
 
+export default function PreviewTheExam() {
+    const exam = useSelector(state => state.exam);
+    let history = useHistory();
+    function handleSubmit(){
+        const docRef = firebase.collection('exams').doc();
+        docRef.set(exam).then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error updating document: ", error);
+            });
+            history.push('/');
+    }
     return (
         <>
-        <h2>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</h2>
-            <div className='my-2'>
-                <Question number='Câu 1'
-                    point='0.5'
-                    question={ramdomTextQuestion}
-                    multileChoieAnswers={true}
-                    correctAnswer='A'
-                >
-                </Question>
-            </div>
-            <div className='my-2'>
-                <Question number='Câu 2'
-                    point='0.5'
-                    question={ramdomTextQuestion}
-                    multileChoieAnswers={true}
-                    correctAnswer='A'
-                >
-                </Question>
-            </div><div className='my-2'>
-                <Question number='Câu 3'
-                    point='0.5'
-                    question={ramdomTextQuestion}
-                    multileChoieAnswers={false}
-                    correctAnswer={ramdomTextAnswer}
-                >
-                </Question>
-            </div>
-            <button className="btn btn-success ml-2">
-                    Hoành thành
+            <h2>{exam.titleExam}</h2>
+            {
+                exam.listQuestions.map((question, index) => {
+                    return <div className='my-2' key={index}>
+                        <Question number={'Câu ' + question.number}
+                            point={question.point}
+                            question={question.question}
+                            isMulipleChoiceAnswer = {question.isMulipleChoiceAnswer}
+                            multileChoieAnswers={question.multileChoieAnswers}
+                            Answer= {question.multileChoieAnswers}
+                            correctAnswer={question.correctAnswer}
+                        >
+                        </Question>
+                    </div>
+                })
+            }
+            <button className="btn-one " onClick={handleSubmit}>
+            <i className="bi bi-check"></i>
+                Hoành thành
             </button>
         </>
     )

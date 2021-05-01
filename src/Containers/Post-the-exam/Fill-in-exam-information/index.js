@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { addDetailOfExam } from '../../../actions/exam';
 
 export default function FillInExamInformation() {
     const [valueTitleTheExam, setValueTitleTheExam] = useState(['Bộ Giáo Dục', 'thi thật', '90p', 'Toán', '1', '2020-2021']);
     const [valueInput, setValueInput] = useState('');
+    const exam = useSelector(state => state.exam);
+    const dispatch = useDispatch();
+    let history = useHistory();
+
     function handleValueTitleTheExam(e) {
         switch (e.target.id) {
             case 'selectExamPlace':
@@ -38,9 +45,26 @@ export default function FillInExamInformation() {
         );
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        const detailExam = {
+            titleExam: valueInput,
+            place: valueTitleTheExam[0],
+            timesOfExam: parseInt(valueTitleTheExam[2]),
+            timesProposed: parseInt(valueTitleTheExam[4]),
+            subjects: valueTitleTheExam[3],
+            format: valueTitleTheExam[1],
+            schoolYear: valueTitleTheExam[5],
+        }
+        const action = addDetailOfExam(detailExam);
+        dispatch(action);
+        history.push('/tao-cau-hoi/1');
+
+    }
     return (
         <>
-            <form className='mx-auto'>
+            <h1>Điền thông tin bài thi</h1>
+            <form className='mx-auto' onSubmit={handleSubmit}>
                 <div className="form-group">
                     <div className="form-inline">
                         <label className='my-1 mr-2' htmlFor="selectExamPlace">Nơi ra đề</label>
@@ -66,10 +90,7 @@ export default function FillInExamInformation() {
                             <option value="90p">90p</option>
                             <option value="120p">120p</option>
                         </select>
-                    </div>
-                </div>
-                <div className="form-group">
-                    <div className="form-inline">
+
                         <label className='my-1 mr-2' htmlFor="selectSubjects">Môn</label>
                         <select className="form-control" onClick={handleValueTitleTheExam}
                             id="selectSubjects">
@@ -84,6 +105,8 @@ export default function FillInExamInformation() {
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
+                    </div>
+                    <div className="form-inline">
                         <label className="ml-1 mr-2" htmlFor="selectSchoolYear">Năm học</label>
                         <select className="custom-select my-1 mr-sm-2" onClick={handleValueTitleTheExam}
                             id="selectSchoolYear">
@@ -94,13 +117,14 @@ export default function FillInExamInformation() {
                         </select>
                     </div>
                     <div className="form-group mt-2">
-                        <label className='my-1 mr-2'>Tiêu đề bài thi</label>
+                        <h3 className='my-1 mr-2'>Tiêu đề bài thi</h3>
                         <input type="text" className="form-control" required
                             value={valueInput}
+                            onChange={(e) => { setValueInput(e.target.value) }}
                         ></input>
                     </div>
                 </div>
-                <button type="submit" className=" btn btn-primary">Hoàn thành</button>
+                <button type="submit" className="btn-one" >Tiếp tục <i className="bi bi-arrow-right-short"></i></button>
             </form>
 
         </>

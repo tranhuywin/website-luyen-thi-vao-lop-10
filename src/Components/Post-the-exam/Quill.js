@@ -15,7 +15,7 @@ export default function Quill(props) {
     }
     function handleValue(e){
         setValueReactQuill(e);
-        props.setValueQuill(valueReactQuill);
+        props.setValueQuill(e);
     }
     return (
         <>
