@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 
 export default function Quill(props) {
-    const [valueReactQuill, setValueReactQuill] = useState('');
+    const valueInit = props.setDefaultvalue;
+
     const modules = {
         toolbar: [
             [{ 'header': '1' }, { 'header': '2' }],
@@ -14,12 +14,12 @@ export default function Quill(props) {
         ]
     }
     function handleValue(e){
-        setValueReactQuill(e);
-        props.setValueQuill(e);
+        props.getValueQuill(e);
     }
     return (
         <>
-            <ReactQuill value={valueReactQuill}
+            <ReactQuill 
+                value = {valueInit}
                 modules={modules}
                 onChange={handleValue}
                 placeholder={props.placeHolder}

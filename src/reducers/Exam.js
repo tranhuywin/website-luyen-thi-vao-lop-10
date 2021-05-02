@@ -11,7 +11,7 @@ const initialState = {
     listQuestions: [{
         number: 1,
         point: 1.5,
-        question: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
+        question: '11111Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
         urlImg: null,
         urlVideo: null,
         isMulipleChoiceAnswer: true,
@@ -25,8 +25,8 @@ const initialState = {
     },
     {
         number: 2,
-        point: 1.5,
-        question: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
+        point: 2.5,
+        question: '222222Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
         urlImg: null,
         urlVideo: null,
         isMulipleChoiceAnswer: false,
@@ -40,8 +40,8 @@ const initialState = {
     },
     {
         number: 3,
-        point: 1.5,
-        question: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
+        point: 3.5,
+        question: '33333Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
         urlImg: null,
         urlVideo: null,
         isMulipleChoiceAnswer: true,
@@ -56,7 +56,7 @@ const initialState = {
     {
         number: 4,
         point: 1.5,
-        question: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
+        question: '444444Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
         urlImg: null,
         urlVideo: null,
         isMulipleChoiceAnswer: true,

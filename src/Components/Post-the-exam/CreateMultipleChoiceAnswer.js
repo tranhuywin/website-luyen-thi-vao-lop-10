@@ -2,11 +2,12 @@ import { useState } from "react";
 
 function Answer(props) {
     const [isCorrect, setIsCorrect] = useState(false);
+    
     isCorrect && props.setCorrect(props.value);
     function hanldeCorrectAnswer() {
         isCorrect ? setIsCorrect(false) : setIsCorrect(true);
     }
-
+    console.log(props.defaultValue);
     return (
         <>
             <div className="input-group">
@@ -14,7 +15,7 @@ function Answer(props) {
                     <span
                         className={
                             "input-group-text " +
-                            (isCorrect === true ? "bg-success text-light" : "")
+                            (isCorrect ? "bg-success text-light" : "")
                         }
                     >
                         {props.value}
@@ -25,6 +26,7 @@ function Answer(props) {
                     className="form-control"
                     aria-label="Answer"
                     id={props.value}
+                    value = {props.defaultValue}
                     onChange={props.getContent}
                     placeholder="Câu trả lời"
                 ></textarea>

@@ -6,24 +6,45 @@ import { useSelector, useDispatch } from "react-redux";
 import { addNewQuestion } from "../../../actions/exam";
 export default function CreateQuestion() {
     handleRefresh();
+    const exam = useSelector((state) => state.exam);
     let { questionNumber } = useParams();
-    //const [questionNumber, setQuestionNumber] = useState(1);
-    const [valueQuestionQuill, setValueQuestionQuill] = useState("");
-    const [valueAnswerQuill, setValueAnswerQuill] = useState("");
-    const [idCorrectAnswer, setIdCorrectAnswer] = useState("");
-    const [listAnswers, setListAnswer] = useState([
-        { ID: "A", content: null },
-        { ID: "B", content: null },
-    ]);
-    const [point, setPoint] = useState(0);
-    const [isMuilpleChoieAnswer, setIsMuilpleChoieAnswer] = useState(false);
+
+    let valueQuestionQuillInit = null;
+    let valueAnswerQuillInit = null;
+    let idCorrectAnswerInit = null;
+    let pointInit = 0;
+    let listAnswersInit = [
+        { ID: "A", content: '' },
+        { ID: "B", content: '' },
+    ];
+    let isMuilpleChoieAnswerInit = false;
+
+    if (questionNumber && exam.listQuestions[parseInt(questionNumber) - 1]) {
+        valueQuestionQuillInit = exam.listQuestions[parseInt(questionNumber) - 1].question;
+        valueAnswerQuillInit = exam.listQuestions[parseInt(questionNumber) - 1].correctAnswer.explain;
+        idCorrectAnswerInit = exam.listQuestions[parseInt(questionNumber) - 1].correctAnswer.multileChoieAnswers;
+        pointInit = exam.listQuestions[parseInt(questionNumber) - 1].point;
+        isMuilpleChoieAnswerInit = exam.listQuestions[parseInt(questionNumber) - 1].isMulipleChoiceAnswer;
+        if (isMuilpleChoieAnswerInit) {
+            listAnswersInit = exam.listQuestions[parseInt(questionNumber) - 1].multileChoieAnswers;
+            //setListAnswer(listAnswersInit); 
+        }
+
+    }
+
+    const [valueQuestionQuill, setValueQuestionQuill] = useState(valueQuestionQuillInit);
+    const [valueAnswerQuill, setValueAnswerQuill] = useState(valueAnswerQuillInit);
+    const [idCorrectAnswer, setIdCorrectAnswer] = useState(idCorrectAnswerInit);
+    const [listAnswers, setListAnswer] = useState(listAnswersInit);
+    const [point, setPoint] = useState(pointInit);
+    const [isMuilpleChoieAnswer, setIsMuilpleChoieAnswer] = useState(isMuilpleChoieAnswerInit);
+
     let history = useHistory();
     const dispatch = useDispatch();
-    const exam = useSelector((state) => state.exam);
-    console.log(exam);
+
     //handle value of title
     const titleExam = useSelector((state) => state.exam.titleExam);
-    !titleExam && history.push("/dien-thong-tin-de");
+    //!titleExam && history.push("/dien-thong-tin-de");
 
     //handle refresh
     function handleRefresh() {
@@ -77,8 +98,8 @@ export default function CreateQuestion() {
             return (listAnswers[index].content = listAnswers[index].content
                 ? listAnswers[index].content
                 : e.target.id === value.ID
-                ? e.target.value
-                : null);
+                    ? e.target.value
+                    : null);
         });
     }
 
@@ -114,8 +135,53 @@ export default function CreateQuestion() {
 
     function handlePreviousQuestion() {
         history.push("/tao-cau-hoi/" + (parseInt(questionNumber) - 1));
-        //setQuestionNumber(questionNumber - 1);
+        if ((parseInt(questionNumber) - 1) > 0) {
+            valueQuestionQuillInit = exam.listQuestions[parseInt(questionNumber) - 2].question;
+            valueAnswerQuillInit = exam.listQuestions[parseInt(questionNumber) - 2].correctAnswer.explain;
+            idCorrectAnswerInit = exam.listQuestions[parseInt(questionNumber) - 2].correctAnswer.multileChoieAnswers;
+            pointInit = exam.listQuestions[parseInt(questionNumber) - 2].point;
+            isMuilpleChoieAnswerInit = exam.listQuestions[parseInt(questionNumber) - 2].isMulipleChoiceAnswer;
+            setListAnswer([
+                { ID: "A", content: '' },
+                { ID: "B", content: '' },
+            ]);
+            if (isMuilpleChoieAnswerInit) {
+                listAnswersInit = exam.listQuestions[parseInt(questionNumber) - 2].multileChoieAnswers;
+                setListAnswer(listAnswersInit); 
+            }
+            setValueQuestionQuill(valueQuestionQuillInit);
+            setValueAnswerQuill(valueAnswerQuillInit);
+            setIdCorrectAnswer(idCorrectAnswerInit);
+            
+            setPoint(pointInit);
+            setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
+        }
     }
+
+     function handleNextQuestion(){
+        history.push("/tao-cau-hoi/" + (parseInt(questionNumber) + 1));
+        //if ((parseInt(questionNumber) - 1) < exam.listQuestions.length) 
+        {
+            valueQuestionQuillInit = exam.listQuestions[parseInt(questionNumber)].question;
+            valueAnswerQuillInit = exam.listQuestions[parseInt(questionNumber)].correctAnswer.explain;
+            idCorrectAnswerInit = exam.listQuestions[parseInt(questionNumber)].correctAnswer.multileChoieAnswers;
+            pointInit = exam.listQuestions[parseInt(questionNumber)].point;
+            isMuilpleChoieAnswerInit = exam.listQuestions[parseInt(questionNumber)].isMulipleChoiceAnswer;
+            setListAnswer([
+                { ID: "A", content: '' },
+                { ID: "B", content: '' },
+            ]);
+            if (isMuilpleChoieAnswerInit) {
+                listAnswersInit = exam.listQuestions[parseInt(questionNumber)].multileChoieAnswers;
+                setListAnswer(listAnswersInit); 
+            }
+            setValueQuestionQuill(valueQuestionQuillInit);
+            setValueAnswerQuill(valueAnswerQuillInit);
+            setIdCorrectAnswer(idCorrectAnswerInit);
+            setPoint(pointInit);
+            setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
+        }
+     }
     return (
         <div>
             <div className="form-row my-2 border-bottom border-dark">
@@ -129,7 +195,7 @@ export default function CreateQuestion() {
                     }}
                     type="number"
                     placeholder="Điểm của câu hỏi"
-                    defaultValue={0}
+                    value={point}
                 />
             </div>
             <div className="my-2">
@@ -139,7 +205,8 @@ export default function CreateQuestion() {
                     dangerouslySetInnerHTML={{ __html: valueQuestionQuill }}
                 />
                 <Quill
-                    setValueQuill={setValueQuestionQuill}
+                    getValueQuill={setValueQuestionQuill}
+                    setDefaultvalue={valueQuestionQuill}
                     placeHolder="Nội dung câu hỏi"
                 ></Quill>
             </div>
@@ -170,6 +237,7 @@ export default function CreateQuestion() {
                                 value={value.ID}
                                 getContent={handleGetContent}
                                 setCorrect={setIdCorrectAnswer}
+                                defaultValue={value.content}
                             ></Answer>
                         </div>
                     );
@@ -205,7 +273,8 @@ export default function CreateQuestion() {
                     dangerouslySetInnerHTML={{ __html: valueAnswerQuill }}
                 />
                 <Quill
-                    setValueQuill={setValueAnswerQuill}
+                    getValueQuill={setValueAnswerQuill}
+                    setDefaultvalue={valueAnswerQuill}
                     placeHolder="Nội dung hướng dẫn giải đề"
                 ></Quill>
             </div>
@@ -222,7 +291,7 @@ export default function CreateQuestion() {
                     type="button"
                     className="btn-one mx-2"
                     style={{ width: "145px" }}
-                    onClick={handlePreviousQuestion}
+                    onClick={handleNextQuestion}
                 >
                     Câu sau<i className="bi bi-arrow-right ml-2"></i>
                 </button>
