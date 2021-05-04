@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CreateQuestion from './Containers/Post-the-exam/Create-Questions';
 import PreviewTheExam from './Containers/Post-the-exam/Preview-the-exam';
 import FillInExamInformation from './Containers/Post-the-exam/Fill-in-exam-information';
@@ -11,7 +11,9 @@ import {
 	Switch,
 	Route
 } from "react-router-dom";
+
 function App() {
+
 	return (
 		<>
 			<Router>
@@ -23,7 +25,7 @@ function App() {
 
 						<div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 							<Switch>
-							<Route path='/dang-nhap' exact component={Login}></Route>
+								<Route path='/dang-nhap' exact component={Login}></Route>
 								<Route path='/tao-cau-hoi/:questionNumber' component={CreateQuestion}></Route>
 								<Route path='/xem-truoc-de' component={PreviewTheExam}></Route>
 								<Route path='/dien-thong-tin-de' exact component={FillInExamInformation}></Route>

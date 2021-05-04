@@ -1,5 +1,6 @@
+import { ListShools } from './../../constants/ListShools';
 const FilterExam = () => {
-
+    console.log(ListShools);
     function handleSubmit() {
 
     }
@@ -9,14 +10,12 @@ const FilterExam = () => {
                 <div className="form-group">
                     <div className="form-inline">
                         <label className='my-1 mr-2' htmlFor="selectExamPlace">Nơi ra đề</label>
-                        <select className=" my-1 mr-sm-2 form-control"
-                            id="selectExamPlace">
-                            <option selected value='Bộ Giáo Dục'>Tất cả</option>
-                            <option value='Bộ Giáo Dục'>Bộ Giáo Dục</option>
-                            <option defaultValue value='THCS Kim Long'>THCS Kim Long</option>
-                            <option value='THPT Trần Phú'>THPT Trần Phú</option>
-                            <option value='THPT Nguyễn Trãi'>THPT Nguyễn Trãi</option>
-                        </select>
+                        <input type="text" list="DropDown" className=" my-1 mr-sm-2 form-control"/>
+                        <datalist id="DropDown" >
+                            <option selected >Tất cả</option>
+                            <option >Bộ Giáo Dục</option>
+                            {ListShools.map((value, index) => { return <option key={index}>{value}</option> })}
+                        </datalist>
                         <label className="my-1 mr-2" htmlFor="selectExamFormat">Dạng đề</label>
                         <select className="custom-select my-1 mr-sm-2"
                             id="selectExamFormat">

@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addDetailOfExam } from '../../../actions/exam';
+import {ListShools} from '../../../constants/ListShools';
 
 export default function FillInExamInformation() {
     const [valueTitleTheExam, setValueTitleTheExam] = useState(['Bộ Giáo Dục', 'thi thật', '90p', 'Toán', '1', '2020-2021']);
     const [valueInput, setValueInput] = useState('');
-    const exam = useSelector(state => state.exam);
+    //const exam = useSelector(state => state.exam);
     const dispatch = useDispatch();
     let history = useHistory();
+
+    const user = localStorage.getItem('_User');
+    !user && history.push('/dang-nhap');
 
     function handleValueTitleTheExam(e) {
         switch (e.target.id) {
@@ -68,13 +72,11 @@ export default function FillInExamInformation() {
                 <div className="form-group">
                     <div className="form-inline">
                         <label className='my-1 mr-2' htmlFor="selectExamPlace">Nơi ra đề</label>
-                        <select className=" my-1 mr-sm-2 form-control" onClick={handleValueTitleTheExam}
-                            id="selectExamPlace">
-                            <option value='Bộ Giáo Dục'>Bộ Giáo Dục</option>
-                            <option defaultValue value='THCS Kim Long'>THCS Kim Long</option>
-                            <option value='THPT Trần Phú'>THPT Trần Phú</option>
-                            <option value='THPT Nguyễn Trãi'>THPT Nguyễn Trãi</option>
-                        </select>
+                        
+                        <input type="text" list="selectExamPlaceData" id="selectExamPlace" className=" my-1 mr-sm-2 form-control" onChange={handleValueTitleTheExam} />
+                        <datalist  id="selectExamPlaceData">
+                            {ListShools.map((value, index) => { return <option key={index}>{value}</option> })}
+                        </datalist>
                         <label className="my-1 mr-2" htmlFor="selectExamFormat">Dạng đề</label>
                         <select className="custom-select my-1 mr-sm-2" onClick={handleValueTitleTheExam}
                             id="selectExamFormat">

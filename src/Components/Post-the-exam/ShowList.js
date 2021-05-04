@@ -26,9 +26,8 @@ const ShowList = () => {
     useEffect(() => {
         let exams = [];
         async function fetchExams() {
-            await firebase.collection("exams").get().then((querySnapshot) => {
+            await firebase.firestore().collection("exams").get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    console.log(doc.data());
                     exams = [...exams, doc.data()];
                 });
             });

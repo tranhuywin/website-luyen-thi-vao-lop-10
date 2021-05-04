@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import firebase from '../../firebase'
+import firebase from '../../firebase';
+
 function Login() {
     const [typePassword, setTypePassword] = useState('password');
 
     const history = useHistory();
+
+    const user = localStorage.getItem('_User');
+    user && history.push('/');
+
     function handleLogin(e) {
         //console.log(e.target.password.value);
         e.preventDefault();
@@ -55,6 +60,29 @@ function Login() {
             });
         });
     }
+
+    function handleLoginWithGoogle() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+                var credential = result.credential;
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = credential.accessToken;
+                // The signed-in user info.
+                var userRes = result.user;
+                const user = {
+                    ID: userRes.uid,
+                    name: userRes.displayName,
+                }
+                localStorage.setItem('_User', JSON.stringify(user));
+                localStorage.setItem('_TokenUser', token);
+                history.push('/');
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
     function handleTooglePassword() {
         if (typePassword === 'text')
             setTypePassword('password')
@@ -92,7 +120,7 @@ function Login() {
                 <button
                     type="button"
                     className="btn btn-default border form-control mt-2"
-                    onClick={handleLogin}
+                    onClick={handleLoginWithGoogle}
                 >
                     <i className="bi bi-google mr-1"></i>
                 Đăng nhập với Google
