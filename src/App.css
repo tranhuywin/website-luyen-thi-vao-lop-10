@@ -53,6 +53,15 @@ button {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+button:disabled{
+    background-color: #6c757d;
+}
+button:disabled:hover{
+    background-color: #6c757d;
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translatey(-0.25em);
+    transition: all 0.2s;
+}
 input {
     color: #232323 !important;
     background-color: #fffffe !important;

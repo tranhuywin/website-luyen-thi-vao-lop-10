@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Quill from "../../../Components/Post-the-exam/Quill";
 import Answer from "../../../Components/Post-the-exam/CreateMultipleChoiceAnswer";
 import { useHistory, useParams } from "react-router";
@@ -14,8 +14,8 @@ export default function CreateQuestion() {
     let idCorrectAnswerInit = null;
     let pointInit = 0;
     let listAnswersInit = [
-        { ID: "A", content: '' },
-        { ID: "B", content: '' },
+        { ID: "A", content: null },
+        { ID: "B", content: null },
     ];
     let isMuilpleChoieAnswerInit = false;
 
@@ -27,7 +27,6 @@ export default function CreateQuestion() {
         isMuilpleChoieAnswerInit = exam.listQuestions[parseInt(questionNumber) - 1].isMulipleChoiceAnswer;
         if (isMuilpleChoieAnswerInit) {
             listAnswersInit = exam.listQuestions[parseInt(questionNumber) - 1].multileChoieAnswers;
-            //setListAnswer(listAnswersInit); 
         }
 
     }
@@ -38,13 +37,30 @@ export default function CreateQuestion() {
     const [listAnswers, setListAnswer] = useState(listAnswersInit);
     const [point, setPoint] = useState(pointInit);
     const [isMuilpleChoieAnswer, setIsMuilpleChoieAnswer] = useState(isMuilpleChoieAnswerInit);
-
+    const [isDisablePrevBtn, setIsDisablePrevBtn] = useState(false);
+    const [isDisableNextBtn, setIsDisableNextBtn] = useState(false);
+    const [isDisableSaveBtn, setIsDisableSaveBtn] = useState(false);
+    const [isDisablePreviewBtn, setIsDisablePreviewBtn] = useState(false);
     let history = useHistory();
     const dispatch = useDispatch();
 
+    //handle disable prev, next button
+    if (parseInt(questionNumber) <= 1 && !isDisablePrevBtn) {
+        setIsDisablePrevBtn(true);
+    }
+    if (parseInt(questionNumber) > 1 && isDisablePrevBtn) {
+        setIsDisablePrevBtn(false);
+    }
+    if (parseInt(questionNumber) >= exam.listQuestions.length && !isDisableNextBtn) {
+        setIsDisableNextBtn(true);
+    }
+    if (parseInt(questionNumber) < exam.listQuestions.length && isDisableNextBtn) {
+        setIsDisableNextBtn(false);
+    }
+
     //handle value of title
     const titleExam = useSelector((state) => state.exam.titleExam);
-    //!titleExam && history.push("/dien-thong-tin-de");
+    !titleExam && history.push("/dien-thong-tin-de");
 
     //handle refresh
     function handleRefresh() {
@@ -92,19 +108,39 @@ export default function CreateQuestion() {
         setListAnswer([...listAnswers]);
     }
 
-    //get content of answer
+    //get content of answer // convert listAnswer to setListAnswer
     function handleGetContent(e) {
-        listAnswers.map((value, index) => {
-            return (listAnswers[index].content = listAnswers[index].content
-                ? listAnswers[index].content
-                : e.target.id === value.ID
-                    ? e.target.value
-                    : null);
+        listAnswers.map((value) => {
+            if (e.target.id === value.ID) {
+                value.content = e.target.value;
+            }
         });
+        setListAnswer([...listAnswers]);
+
     }
 
     //save question to Redux
     function hanldeAddQuestion() {
+        history.push("/tao-cau-hoi/" + (parseInt(questionNumber) + 1));
+
+        valueQuestionQuillInit = null;
+        valueAnswerQuillInit = null;
+        idCorrectAnswerInit = null;
+        pointInit = 0;
+        isMuilpleChoieAnswerInit = false;
+        setListAnswer([
+            { ID: "A", content: '' },
+            { ID: "B", content: '' },
+        ]);
+
+        setValueQuestionQuill(valueQuestionQuillInit);
+        setValueAnswerQuill(valueAnswerQuillInit);
+        setIdCorrectAnswer(idCorrectAnswerInit);
+        setPoint(pointInit);
+        setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
+    }
+    console.log(exam);
+    function hanldSaveQuestion() {
         const newExam = {
             number: parseInt(questionNumber),
             point: parseInt(point),
@@ -120,19 +156,10 @@ export default function CreateQuestion() {
                 urlParem: null,
             },
         };
+        console.log(newExam);
         const action = addNewQuestion(newExam);
         dispatch(action);
-        history.push("/tao-cau-hoi/" + (parseInt(questionNumber) + 1));
-        //setQuestionNumber(questionNumber + 1);
-        // setValueQuestionQuill('');
-        // setValueAnswerQuill('');
-        // setIdCorrectAnswer('');
-        // setListAnswer([{ ID: "A", content: null }, { ID: "B", content: null },]);
-        // setPoint(0);
-        // setIsMuilpleChoieAnswer(false);
-        // setQuestionNumber(questionNumber + 1);
     }
-
     function handlePreviousQuestion() {
         history.push("/tao-cau-hoi/" + (parseInt(questionNumber) - 1));
         if ((parseInt(questionNumber) - 1) > 0) {
@@ -147,21 +174,20 @@ export default function CreateQuestion() {
             ]);
             if (isMuilpleChoieAnswerInit) {
                 listAnswersInit = exam.listQuestions[parseInt(questionNumber) - 2].multileChoieAnswers;
-                setListAnswer(listAnswersInit); 
+                setListAnswer(listAnswersInit);
             }
             setValueQuestionQuill(valueQuestionQuillInit);
             setValueAnswerQuill(valueAnswerQuillInit);
             setIdCorrectAnswer(idCorrectAnswerInit);
-            
+
             setPoint(pointInit);
             setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
         }
     }
 
-     function handleNextQuestion(){
+    function handleNextQuestion() {
         history.push("/tao-cau-hoi/" + (parseInt(questionNumber) + 1));
-        //if ((parseInt(questionNumber) - 1) < exam.listQuestions.length) 
-        {
+        if ((parseInt(questionNumber) - 1) < exam.listQuestions.length) {
             valueQuestionQuillInit = exam.listQuestions[parseInt(questionNumber)].question;
             valueAnswerQuillInit = exam.listQuestions[parseInt(questionNumber)].correctAnswer.explain;
             idCorrectAnswerInit = exam.listQuestions[parseInt(questionNumber)].correctAnswer.multileChoieAnswers;
@@ -173,7 +199,7 @@ export default function CreateQuestion() {
             ]);
             if (isMuilpleChoieAnswerInit) {
                 listAnswersInit = exam.listQuestions[parseInt(questionNumber)].multileChoieAnswers;
-                setListAnswer(listAnswersInit); 
+                setListAnswer(listAnswersInit);
             }
             setValueQuestionQuill(valueQuestionQuillInit);
             setValueAnswerQuill(valueAnswerQuillInit);
@@ -181,7 +207,7 @@ export default function CreateQuestion() {
             setPoint(pointInit);
             setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
         }
-     }
+    }
     return (
         <div>
             <div className="form-row my-2 border-bottom border-dark">
@@ -278,35 +304,47 @@ export default function CreateQuestion() {
                     placeHolder="Nội dung hướng dẫn giải đề"
                 ></Quill>
             </div>
-            <div className="btn-group" role="group" aria-label="group button">
+            <div className="form-inline mb-3">
                 <button
                     type="button"
-                    className="btn-one mx-2"
+                    className="btn-one m-2"
                     style={{ width: "145px" }}
                     onClick={handlePreviousQuestion}
+                    disabled={isDisablePrevBtn}
                 >
                     <i className="bi bi-arrow-left mr-2"></i>Câu trước
                 </button>
                 <button
                     type="button"
-                    className="btn-one mx-2"
+                    className="btn-one m-2"
                     style={{ width: "145px" }}
                     onClick={handleNextQuestion}
+                    disabled={isDisableNextBtn}
                 >
                     Câu sau<i className="bi bi-arrow-right ml-2"></i>
                 </button>
                 <button
                     type="button"
-                    className="btn-one mx-2"
+                    className="btn-one m-2"
                     onClick={hanldeAddQuestion}
                 >
                     <i className="bi bi-plus mr-2"></i>Thêm câu hỏi
                 </button>
                 <button
                     type="button"
-                    className="btn-one mx-2"
+                    className="btn-one m-2"
+                    onClick={hanldSaveQuestion}
+                    style={{ width: "145px" }}
+                    disabled={isDisableSaveBtn}
+                >
+                    <i className="bi bi-save mr-2"></i>Lưu
+                </button>
+                <button
+                    type="button"
+                    className="btn-one m-2"
                     onClick={handleSuccess}
                     style={{ width: "145px" }}
+                    disabled={isDisablePreviewBtn}
                 >
                     <i className="bi bi-check mr-2"></i>Xem trước
                 </button>
