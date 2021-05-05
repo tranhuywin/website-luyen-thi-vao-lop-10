@@ -77,9 +77,8 @@ export default function CreateQuestion() {
         };
     }
 
-    //finish add question
-    function handleSuccess() {
-        hanldeAddQuestion();
+    //hanlde preview the exam
+    function handlePreview() {
         history.push("/xem-truoc-de");
     }
 
@@ -342,7 +341,7 @@ export default function CreateQuestion() {
                 <button
                     type="button"
                     className="btn-one m-2"
-                    onClick={handleSuccess}
+                    onClick={handlePreview}
                     style={{ width: "145px" }}
                     disabled={isDisablePreviewBtn}
                 >

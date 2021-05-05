@@ -22,7 +22,7 @@ export default function PreviewTheExam() {
             {
                 exam.listQuestions.map((question, index) => {
                     return <div className='my-2' key={index}>
-                        <Question number={'Câu ' + question.number}
+                        <Question number={question.number}
                             point={question.point}
                             question={question.question}
                             isMulipleChoiceAnswer = {question.isMulipleChoiceAnswer}

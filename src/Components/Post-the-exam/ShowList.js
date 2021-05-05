@@ -1,7 +1,4 @@
-import firebase from './../../firebase'
-import { useState, useEffect } from 'react';
-const ShowList = () => {
-    const [listExams, setListExams] = useState([]);
+const ShowList = ({ list, onclickCheck }) => {
     const Styles = {
         checkbox: {
             width: '17px',
@@ -13,41 +10,35 @@ const ShowList = () => {
             justifyContent: 'none',
             padding: '3px',
         },
-        header:{
+        header: {
             backgroundColor: '#f45d48',
         },
-        upBtn:{
+        upBtn: {
             float: 'right',
             justifyContent: 'none',
             padding: '3px',
             backgroundColor: '#f45d48'
         }
     }
-    useEffect(() => {
-        let exams = [];
-        async function fetchExams() {
-            await firebase.firestore().collection("exams").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    exams = [...exams, doc.data()];
-                });
-            });
-            setListExams(exams);
-        }
-        fetchExams();
-    }, [])
     return (
         <div>
             <div className="card-header" style={Styles.header}>
                 <h5>Các đề thi đang chờ duyệt</h5>
-                </div>
+            </div>
             <ul className="list-group">
-                {listExams.map((value, index) => {
-                    return <div>
-                        <li className="list-group-item align-items-center ">
-                            <input type="checkbox" style={Styles.checkbox} name="exampleRadios" id={index} />
-                            <label className="form-check-label ml-2" htmlFor={index}>{value.titleExam}</label>
-                            <button className='btn-one mx-1' style={Styles.detailBtn}><i className="bi bi-binoculars"></i> Chi tiết</button>
-                        </li></div>
+                {list.map((value) => {
+                    return (
+                        <li className="list-group-item align-items-center " key={value.id}>
+                            <input type="checkbox" style={Styles.checkbox} name="exampleRadios"
+                                id={value.id}
+                                checked={value.checked} 
+                                onChange={onclickCheck}
+                                />
+                            <label className="form-check-label ml-2" htmlFor={value.id}>{value.data.titleExam}</label>
+                            <button className='btn-one mx-1' style={Styles.detailBtn}>
+                                <i className="bi bi-binoculars"></i> Chi tiết
+                                </button>
+                        </li>)
                 })}
 
             </ul>

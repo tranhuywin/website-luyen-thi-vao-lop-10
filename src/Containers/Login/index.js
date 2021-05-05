@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import firebase from '../../firebase';
+import firebase, {AddDataToCollection} from '../../firebase';
 
 function Login() {
     const [typePassword, setTypePassword] = useState('password');
@@ -77,7 +77,8 @@ function Login() {
                 }
                 localStorage.setItem('_User', JSON.stringify(user));
                 localStorage.setItem('_TokenUser', token);
-                history.push('/');
+                AddDataToCollection(user, `user/${user.ID}`);
+                history.replace('/');
             }).catch((error) => {
                 console.log(error);
             });

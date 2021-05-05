@@ -6,8 +6,8 @@ const initialState = {
     subjects: null,
     format: null,
     schoolYear: null,
-    //listQuestions:[],
-    
+    listQuestions:[],
+    /*
     listQuestions: [{
         number: 1,
         point: 1.5,
@@ -69,7 +69,7 @@ const initialState = {
         }
     },
     ]
-    
+    */
 }
 
 const examReducer = (state = initialState, action) => {

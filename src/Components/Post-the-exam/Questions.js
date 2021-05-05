@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import TickMultipleChoieAnswer from './TickMultipleChoieAnswer'
 
 export default function Questions(props) {
@@ -7,11 +8,11 @@ export default function Questions(props) {
         e.preventDefault();
         shouldShowCorrectAnswer ? setShouldShowCorrectAnsewer(false) : setShouldShowCorrectAnsewer(true);
     }
-    //console.log(props.multileChoieAnswers[0].ID);
+
     return (
         <>
             <div className="card" >
-                <h5 className="card-header">{props.number} ({props.point})</h5>
+                <h5 className="card-header">Câu {props.number} ({props.point})</h5>
                 <div className="card-body">
                     <h5 className="card-title" dangerouslySetInnerHTML={{ __html: props.question }}></h5>
                     {props.isMulipleChoiceAnswer && (
@@ -24,12 +25,12 @@ export default function Questions(props) {
                     )}
                     {shouldShowCorrectAnswer ? <div>
                         <p>Giải: {props.correctAnswer.multileChoieAnswers}</p>
-                        <p>{props.correctAnswer.explain}</p>
+                        <p dangerouslySetInnerHTML={{ __html: props.correctAnswer.explain }}></p>
                     </div> : ''}
                     <button className="btn btn-primary mr-2" onClick={handleShowCorrectAnswer}>
                         Xem câu trả lời
                     </button>
-                    <a href="/" className="btn btn-primary">Sửa câu hỏi</a>
+                    <Link to={"/tao-cau-hoi/" + props.number} className="btn btn-primary">Sửa câu hỏi</Link>
                 </div>
             </div>
 

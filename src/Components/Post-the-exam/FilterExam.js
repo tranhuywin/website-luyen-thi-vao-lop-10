@@ -1,6 +1,5 @@
 import { ListShools } from './../../constants/ListShools';
 const FilterExam = () => {
-    console.log(ListShools);
     function handleSubmit() {
 
     }
