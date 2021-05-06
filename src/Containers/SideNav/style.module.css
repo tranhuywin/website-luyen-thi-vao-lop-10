@@ -1,6 +1,6 @@
 .sidenav {
     height: 100%;
-    width: 0;
+    width: 180px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -35,10 +35,11 @@
 }
 
 .opennav {
-    width: 180px;
+    /* width: 180px; */
 }
 .closenav {
-    width: 0px;
+    /* width: 0px; */
+    left: -200px;
     margin-left: 0px;
     background-color: white;
 }

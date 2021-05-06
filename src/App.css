@@ -74,3 +74,8 @@ select:focus {
         0 0 8px rgba(116, 119, 116, 0.6) !important;
     outline: 0 none !important;
 }
+
+img {
+    max-width: 700px;
+    max-height: 700px;
+}

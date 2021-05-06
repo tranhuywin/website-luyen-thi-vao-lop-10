@@ -9,9 +9,9 @@ const FilterExam = () => {
                 <div className="form-group">
                     <div className="form-inline">
                         <label className='my-1 mr-2' htmlFor="selectExamPlace">Nơi ra đề</label>
-                        <input type="text" list="DropDown" className=" my-1 mr-sm-2 form-control"/>
+                        <input type="text" list="DropDown" className=" my-1 mr-sm-2 form-control" placeholder='Tất cả'/>
                         <datalist id="DropDown" >
-                            <option selected >Tất cả</option>
+                            <option selected>Tất cả</option>
                             <option >Bộ Giáo Dục</option>
                             {ListShools.map((value, index) => { return <option key={index}>{value}</option> })}
                         </datalist>

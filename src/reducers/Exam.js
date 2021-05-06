@@ -12,7 +12,7 @@ const initialState = {
         number: 1,
         point: 1.5,
         question: '11111Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa ?',
-        urlImg: null,
+        urlImg: 'C:\Users\TranHuyWin\Downloads\background.png',
         urlVideo: null,
         isMulipleChoiceAnswer: true,
         multileChoieAnswers: [{ ID: 'A', content: 'Lorem ipsum dolor sit amet' }, { ID: 'B', content: 'Lorem ipsum dolor sit amet' }, { ID: 'C', content: 'Lorem ipsum dolor sit amet' },],
@@ -69,7 +69,7 @@ const initialState = {
         }
     },
     ]
-    */
+*/
 }
 
 const examReducer = (state = initialState, action) => {
@@ -94,6 +94,9 @@ const examReducer = (state = initialState, action) => {
                 listQuestions: [],
             }
             return exam;
+        }
+        case 'ADD_EXAM': {
+            return action.payload;
         }
         default:
             return state;

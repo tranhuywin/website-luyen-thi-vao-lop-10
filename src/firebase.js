@@ -57,3 +57,30 @@ export const DeleteDataFromCollection = async (reference) => {
 }
 
 //update data
+
+//upload Image
+export const AddImageFileToStorage = (imageFile, idExam) => {
+    let progress;
+    const uploadTask = firebase.storage().ref(`images/${idExam}/${imageFile.name}`).put(imageFile);
+    uploadTask.on(
+        "state_changed",
+        snapshot => {
+            progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            console.log('Upload is ' + progress + '% done');
+        },
+        error => {
+            console.log(error);
+        },
+        () => {
+            firebase.storage()
+                .ref(`images/${idExam}`)
+                .child(imageFile.name)
+                .getDownloadURL()
+                .then(url => {
+                    return url;
+                });
+        }
+    );
+}

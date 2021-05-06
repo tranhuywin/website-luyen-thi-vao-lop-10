@@ -1,4 +1,10 @@
+import { useDispatch } from "react-redux";
+import { addExam } from "../../actions/exam";
+import { useHistory } from "react-router";
 const ShowList = ({ list, onclickCheck }) => {
+
+    const dispatch = useDispatch();
+    let history = useHistory();
     const Styles = {
         checkbox: {
             width: '17px',
@@ -20,6 +26,18 @@ const ShowList = ({ list, onclickCheck }) => {
             backgroundColor: '#f45d48'
         }
     }
+    function hanldeShowDetail(e) {
+        let newExam;
+        list.map((value) => {
+            if (value.id === e.target.id)
+                newExam = value.data;
+        })
+        //const newExam =;
+        const action = addExam(newExam);
+        console.log(newExam);
+        dispatch(action);
+        history.push('/xem-truoc-de');
+    }
     return (
         <div>
             <div className="card-header" style={Styles.header}>
@@ -31,11 +49,11 @@ const ShowList = ({ list, onclickCheck }) => {
                         <li className="list-group-item align-items-center " key={value.id}>
                             <input type="checkbox" style={Styles.checkbox} name="exampleRadios"
                                 id={value.id}
-                                checked={value.checked} 
+                                checked={value.checked}
                                 onChange={onclickCheck}
-                                />
+                            />
                             <label className="form-check-label ml-2" htmlFor={value.id}>{value.data.titleExam}</label>
-                            <button className='btn-one mx-1' style={Styles.detailBtn}>
+                            <button className='btn-one mx-1' style={Styles.detailBtn} id={value.id} onClick={hanldeShowDetail}>
                                 <i className="bi bi-binoculars"></i> Chi tiết
                                 </button>
                         </li>)

@@ -77,7 +77,7 @@ function PostToTheWebsite() {
                 <label className="form-check-label ml-1" htmlFor='pickAll'><small>chọn tất cả</small></label>
             </div>
             <button className='btn-one' style={Styles.upBtn}><i className="bi bi-file-arrow-up"></i> Đăng đề</button>
-            <button className='btn-two mx-2' onClick={hanldeRemoveExams} style={Styles.upBtn}><i className="bi bi-trash"></i> Xóa đề</button>
+            <button className='btn-two mx-2' onClick={hanldeRemoveExams} style={Styles.upBtn}><i className="bi bi-trash"></i> Xóa đề</button>           
         </div>
     )
 }

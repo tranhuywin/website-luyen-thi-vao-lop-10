@@ -1,6 +1,6 @@
-import ReactQuill from 'react-quill';
+import ReactQuill, {Quill} from 'react-quill';
 
-export default function Quill(props) {
+export default function RQuill(props) {
     const valueInit = props.setDefaultvalue;
 
     const modules = {
@@ -11,15 +11,17 @@ export default function Quill(props) {
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             ['image', 'video'], [{ 'script': 'sub' }, { 'script': 'super' }],
             ['clean']
-        ]
+        ],
+        
     }
-    function handleValue(e){
+    function handleValue(e) {
         props.getValueQuill(e);
     }
     return (
         <>
-            <ReactQuill 
-                value = {valueInit}
+            <ReactQuill          
+            onfile
+                value={valueInit}
                 modules={modules}
                 onChange={handleValue}
                 placeholder={props.placeHolder}
@@ -27,3 +29,4 @@ export default function Quill(props) {
         </>
     )
 }
+

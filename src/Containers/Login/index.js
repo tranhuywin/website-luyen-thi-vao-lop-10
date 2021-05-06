@@ -11,33 +11,7 @@ function Login() {
     user && history.push('/');
 
     function handleLogin(e) {
-        //console.log(e.target.password.value);
         e.preventDefault();
-        //add, update data
-        // const docRef = firebase.collection('exams').doc();
-        // docRef.set(obj).then(() => {
-        //         console.log("Document successfully updated!");
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error updating document: ", error);
-        //     });
-
-        //update
-        // docRef.update(obj).then(() => {
-        //     console.log("Document successfully updated!");
-        // })
-        // .catch((error) => {
-        //     // The document probably doesn't exist.
-        //     console.error("Error updating document: ", error);
-        // });
-
-        //Delete
-        // firebase.collection("exams").doc("question 1").delete().then(() => {
-        //     console.log("Document successfully deleted!");
-        // }).catch((error) => {
-        //     console.error("Error removing document: ", error);
-        // });
-        //Read data
         firebase.collection("users").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 const user = {
@@ -78,7 +52,7 @@ function Login() {
                 localStorage.setItem('_User', JSON.stringify(user));
                 localStorage.setItem('_TokenUser', token);
                 AddDataToCollection(user, `user/${user.ID}`);
-                history.replace('/');
+                history.go('/');
             }).catch((error) => {
                 console.log(error);
             });

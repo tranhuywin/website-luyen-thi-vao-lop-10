@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CreateQuestion from './Containers/Post-the-exam/Create-Questions';
 import PreviewTheExam from './Containers/Post-the-exam/Preview-the-exam';
 import FillInExamInformation from './Containers/Post-the-exam/Fill-in-exam-information';
@@ -13,7 +13,6 @@ import {
 } from "react-router-dom";
 
 function App() {
-
 	return (
 		<>
 			<Router>

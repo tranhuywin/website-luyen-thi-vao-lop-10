@@ -10,3 +10,9 @@ export const addDetailOfExam = (detail) =>{
         payload : detail,
     }
 } 
+export const addExam = (exam) =>{
+    return {
+        type : 'ADD_EXAM',
+        payload : exam,
+    }
+} 

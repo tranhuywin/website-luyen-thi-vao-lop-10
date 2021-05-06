@@ -6,16 +6,17 @@ import { useHistory } from "react-router";
 export default function PreviewTheExam() {
     const exam = useSelector(state => state.exam);
     let history = useHistory();
-    function handleSubmit(){
-        const docRef = firebase.collection('exams').doc();
+    function handleSubmit() {
+        const docRef = firebase.firestore().collection('exams').doc();
         docRef.set(exam).then(() => {
-                console.log("Document successfully written!");
-            })
+            console.log("Document successfully written!");
+        })
             .catch((error) => {
                 console.error("Error updating document: ", error);
             });
-            history.push('/');
+        history.push('/');
     }
+
     return (
         <>
             <h2>{exam.titleExam}</h2>
@@ -25,9 +26,9 @@ export default function PreviewTheExam() {
                         <Question number={question.number}
                             point={question.point}
                             question={question.question}
-                            isMulipleChoiceAnswer = {question.isMulipleChoiceAnswer}
+                            isMulipleChoiceAnswer={question.isMulipleChoiceAnswer}
                             multileChoieAnswers={question.multileChoieAnswers}
-                            Answer= {question.multileChoieAnswers}
+                            Answer={question.multileChoieAnswers}
                             correctAnswer={question.correctAnswer}
                         >
                         </Question>
@@ -35,7 +36,7 @@ export default function PreviewTheExam() {
                 })
             }
             <button className="btn-one " onClick={handleSubmit}>
-            <i className="bi bi-check"></i>
+                <i className="bi bi-check"></i>
                 Hoành thành
             </button>
         </>

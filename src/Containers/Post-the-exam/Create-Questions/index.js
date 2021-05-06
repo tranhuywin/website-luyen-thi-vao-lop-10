@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Quill from "../../../Components/Post-the-exam/Quill";
 import Answer from "../../../Components/Post-the-exam/CreateMultipleChoiceAnswer";
 import { useHistory, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewQuestion } from "../../../actions/exam";
+
 export default function CreateQuestion() {
     handleRefresh();
     const exam = useSelector((state) => state.exam);
@@ -60,7 +61,7 @@ export default function CreateQuestion() {
 
     //handle value of title
     const titleExam = useSelector((state) => state.exam.titleExam);
-    !titleExam && history.push("/dien-thong-tin-de");
+    //!titleExam && history.push("/dien-thong-tin-de");
 
     //handle refresh
     function handleRefresh() {
@@ -138,14 +139,12 @@ export default function CreateQuestion() {
         setPoint(pointInit);
         setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
     }
-    console.log(exam);
+
     function hanldSaveQuestion() {
         const newExam = {
             number: parseInt(questionNumber),
             point: parseInt(point),
             question: valueQuestionQuill,
-            urlImg: null,
-            urlVideo: null,
             isMulipleChoiceAnswer: isMuilpleChoieAnswer,
             multileChoieAnswers: listAnswers, // list cau tra loi cua de
             answer: null, //answers of student
@@ -155,10 +154,10 @@ export default function CreateQuestion() {
                 urlParem: null,
             },
         };
-        console.log(newExam);
         const action = addNewQuestion(newExam);
         dispatch(action);
     }
+
     function handlePreviousQuestion() {
         history.push("/tao-cau-hoi/" + (parseInt(questionNumber) - 1));
         if ((parseInt(questionNumber) - 1) > 0) {
