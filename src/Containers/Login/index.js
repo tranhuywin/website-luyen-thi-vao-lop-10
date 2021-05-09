@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import firebase, {AddDataToCollection} from '../../firebase';
+import Styles from './Login.module.css';
 
 function Login() {
     const [typePassword, setTypePassword] = useState('password');
@@ -48,6 +49,8 @@ function Login() {
                 const user = {
                     ID: userRes.uid,
                     name: userRes.displayName,
+                    email: userRes.email,
+                    photoUrl: userRes.photoURL
                 }
                 localStorage.setItem('_User', JSON.stringify(user));
                 localStorage.setItem('_TokenUser', token);
@@ -65,7 +68,7 @@ function Login() {
             setTypePassword('text')
     }
     return (
-        <div>
+        <div className={Styles.login}>
             <h1 className="text-center mb-4 mt-3">Website luyện thi vào lớp 10</h1>
             <h6 className="text-center mb-5">Đăng nhập để tiếp tục: </h6>
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-4 m-auto">
@@ -84,7 +87,7 @@ function Login() {
 
                     </div>
                     <div className="justify-content-center">
-                        <button type="submit" className="btn btn-dark form-control">
+                        <button type="submit" className={"btn form-control " + Styles.buttonlogin}>
                             Đăng nhập
                         </button>
                     </div>
@@ -94,7 +97,7 @@ function Login() {
                 <h6 className="label text-center mt-2">hoặc</h6>
                 <button
                     type="button"
-                    className="btn btn-default border form-control mt-2"
+                    className="btn btn-default border form-control my-2"
                     onClick={handleLoginWithGoogle}
                 >
                     <i className="bi bi-google mr-1"></i>

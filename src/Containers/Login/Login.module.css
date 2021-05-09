@@ -1,0 +1,17 @@
+body {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/luyen-thi-vao-lop-10.appspot.com/o/images%2Fbackgroundlogin.jpg?alt=media&token=910c2811-a1a4-4b9b-880a-c229e894f105");
+    background-size: cover;
+}
+.buttonlogin {
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    border-radius: 4px;
+    color: #fff;
+}
+.buttonlogin:hover {
+    color: #fff;
+}
+.login {
+    /* background-color: #fff;
+    padding: 16px !important;
+    border-radius: 10px; */
+}
