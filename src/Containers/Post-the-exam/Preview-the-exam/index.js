@@ -30,6 +30,7 @@ export default function PreviewTheExam() {
                             multileChoieAnswers={question.multileChoieAnswers}
                             Answer={question.multileChoieAnswers}
                             correctAnswer={question.correctAnswer}
+                            isPreview = {true}
                         >
                         </Question>
                     </div>
@@ -38,6 +39,7 @@ export default function PreviewTheExam() {
             <button className="btn-one " onClick={handleSubmit}>
                 <i className="bi bi-check"></i>
                 Hoành thành
+
             </button>
         </>
     )
