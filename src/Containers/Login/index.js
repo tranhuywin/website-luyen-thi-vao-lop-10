@@ -1,10 +1,66 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
+import firebase, {AddDataToCollection} from '../../firebase';
+import Styles from './Login.module.css';
 
 function Login() {
     const [typePassword, setTypePassword] = useState('password');
-    function handleLogin() {
-        console.log('go to homepage');
+
+    const history = useHistory();
+
+    const user = localStorage.getItem('_User');
+    user && history.push('/');
+
+    function handleLogin(e) {
+        e.preventDefault();
+        firebase.collection("users").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const user = {
+                    username: e.target.email.value,
+                    password: e.target.password.value
+                }
+                if (doc.data().username === user.username) {
+                    if (doc.data().password === user.password) {
+                        history.push('/');
+                    }
+                    else {
+                        console.log('wrong password');
+                    }
+
+                }
+                else {
+                    console.log('user isnt avaliable');
+                }
+
+            });
+        });
     }
+
+    function handleLoginWithGoogle() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+                var credential = result.credential;
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = credential.accessToken;
+                // The signed-in user info.
+                var userRes = result.user;
+                const user = {
+                    ID: userRes.uid,
+                    name: userRes.displayName,
+                    email: userRes.email,
+                    photoUrl: userRes.photoURL
+                }
+                localStorage.setItem('_User', JSON.stringify(user));
+                localStorage.setItem('_TokenUser', token);
+                AddDataToCollection(user, `user/${user.ID}`);
+                history.go('/');
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
     function handleTooglePassword() {
         if (typePassword === 'text')
             setTypePassword('password')
@@ -12,15 +68,14 @@ function Login() {
             setTypePassword('text')
     }
     return (
-        <div>
+        <div className={Styles.login}>
             <h1 className="text-center mb-4 mt-3">Website luyện thi vào lớp 10</h1>
             <h6 className="text-center mb-5">Đăng nhập để tiếp tục: </h6>
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-4 m-auto">
-                <form>
+                <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <input type="email" name="email" className="form-control" id="email" aria-describedby="emailHelp"
                             placeholder="Email" />
-
                     </div>
                     <div className="form-group input-group">
                         <input type={typePassword} name="password" className="form-control" id="password"
@@ -32,7 +87,7 @@ function Login() {
 
                     </div>
                     <div className="justify-content-center">
-                        <button type="submit" className="btn btn-dark form-control">
+                        <button type="submit" className={"btn form-control " + Styles.buttonlogin}>
                             Đăng nhập
                         </button>
                     </div>
@@ -42,8 +97,8 @@ function Login() {
                 <h6 className="label text-center mt-2">hoặc</h6>
                 <button
                     type="button"
-                    className="btn btn-default border form-control mt-2"
-                    onClick={handleLogin}
+                    className="btn btn-default border form-control my-2"
+                    onClick={handleLoginWithGoogle}
                 >
                     <i className="bi bi-google mr-1"></i>
                 Đăng nhập với Google

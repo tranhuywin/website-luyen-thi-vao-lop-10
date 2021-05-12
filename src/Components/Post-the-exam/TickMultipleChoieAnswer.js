@@ -3,9 +3,9 @@ import React from 'react'
 export default function TickMultipleChoieAnswer(props) {
     return (
         <>
-            <div class="form-group form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id={props.id}  />
-                <label class="form-check-label" for={props.id}>{props.name}. Default radio</label>
+            <div className="form-group form-check">
+                <input className="form-check-input" type="radio" name="exampleRadios" id={props.id}  />
+                <label className="form-check-label" htmlFor={props.id}>{props.name}. {props.value}</label>
             </div>
         </>
     )

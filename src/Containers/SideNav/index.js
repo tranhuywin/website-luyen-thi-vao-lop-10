@@ -1,36 +1,31 @@
 import { useState } from 'react';
-import Style from './style.module.css'
+import { useHistory } from 'react-router';
+import Style from './style.module.css';
+import { Link } from 'react-router-dom';
+export default function SideNav({ isOpen }) {
 
-export default function SideNav() {
-    const [isOpenSideNav, setIsOpenSidenav] = useState(false);
-    const styleOpenbutton = {
-        'fontSize': "30px",
-        'cursor': 'pointer'
-    }
-    function openNav() {
-        if(isOpenSideNav === false ){
-            setIsOpenSidenav(true);
-        }
-      }
-
-    function closeNav() {
-        if(isOpenSideNav === true ){
-            setIsOpenSidenav(false);
-        }
+    const userInit = localStorage.getItem('_User');
+    const [user, setUser] = useState(userInit);
+    const history = useHistory();
+   
+    function hanldeLogOut() {
+        localStorage.removeItem('_User');
+        history.go('/');
+        setUser(null);
     }
     return (
         <>
-            <div className={Style.sidenav + ` ` + (isOpenSideNav === true ? Style.opennav :  Style.closenav) }>
-                <button className="btn closebtn" onClick={closeNav}>&times;</button>
-                <a href="/">Trang chủ</a>
-                <a href="/">Bảng điểm</a>
-                <a href="/">Luyện thi</a>
-                <a href="/">Ôn thi</a>
-                <a href="/">Đăng đề</a>
-                <a href="/">Duyệt đề</a>
-                <a href="/">Đăng xuất</a>
+            <div className={Style.sidenav + ` ` + (isOpen ? Style.opennav : Style.closenav)}>
+                <Link to="/"><i className="bi bi-house-door mx-2"></i> Trang chủ</Link>
+                <Link to="/"><i className="bi bi-card-list mx-2"></i> Bảng điểm</Link>
+                <Link to="/"><i className="bi bi-eyeglasses mx-2"></i> Luyện thi</Link>
+                <Link to="/"><i className="bi bi-book mx-2"></i> Ôn thi</Link>
+                {user && <Link to="/dien-thong-tin-de"><i className="bi bi-file-earmark-plus mx-2"></i> Đăng đề</Link>}
+                {user && <Link to="/duyet-de"><i className="bi bi-cloud-upload mx-2"></i> Duyệt đề</Link>}
+                {user && <Link onClick={hanldeLogOut}><i className="bi bi-box-arrow-left mx-2"></i> Đăng xuất</Link>}
+                {!user && <Link to="/dang-nhap"><i className="bi bi-box-arrow-right mx-2"></i> Đăng nhập</Link>}
             </div>
-            <button style={styleOpenbutton} className='btn' onClick={openNav}> &#9776;</button>
+
         </>
     )
 }
