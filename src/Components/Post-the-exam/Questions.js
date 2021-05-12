@@ -25,7 +25,7 @@ export default function Questions(props) {
                             })}
                         </div>
 
-                    ) : ''}
+                    )}
                     {props.isQuillAnswer && <>
                     <div className='form-group' dangerouslySetInnerHTML={{ __html: valueQuestionQuill }} />
                     <Quill setValueQuill={setValueQuestionQuill} placeHolder='Nội dung câu hỏi'></Quill>
