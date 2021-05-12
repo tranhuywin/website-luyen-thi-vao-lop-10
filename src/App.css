@@ -1,7 +1,9 @@
 body {
     font-family: "Oswald", sans-serif;
-    background-color: #f8f5f2;
     color: #222525;
+
+    background-image: url('/src/Image/background.jpg');
+    background-size: cover;
 }
 h2 {
     color: #232323;
@@ -10,7 +12,7 @@ p {
     color: #222525;
 }
 .btn-one {
-    background-color: #2A9D8F;
+    background-color: #2a9d8f;
     color: #232323;
 }
 .btn-one:hover,
@@ -31,7 +33,7 @@ p {
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translateY(-0.15em);
 }
-.cardBody{
+.cardBody {
     /* background-color: rgba(255, 255, 255, 0.733); */
     background-color: #f8f5f2;
     border-radius: 5px;
@@ -55,10 +57,10 @@ button {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-button:disabled{
+button:disabled {
     background-color: #6c757d;
 }
-button:disabled:hover{
+button:disabled:hover {
     background-color: #6c757d;
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translatey(-0.25em);

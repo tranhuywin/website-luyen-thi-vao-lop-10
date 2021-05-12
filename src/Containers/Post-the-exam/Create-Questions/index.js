@@ -4,6 +4,8 @@ import Answer from "../../../Components/Post-the-exam/CreateMultipleChoiceAnswer
 import { useHistory, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewQuestion } from "../../../actions/exam";
+import { StaticMathField } from "react-mathquill";
+import FiltermathSigns from './FiltermathSigns';
 
 export default function CreateQuestion() {
     handleRefresh();
@@ -206,6 +208,7 @@ export default function CreateQuestion() {
             setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
         }
     }
+    // console.log(FiltermathSigns);
     return (
         <div>
             <div className="form-row my-2 border-bottom border-dark">
@@ -224,15 +227,20 @@ export default function CreateQuestion() {
             </div>
             <div className="my-2">
                 <label className="label">Câu {questionNumber}:</label>
+
                 <div
                     className="form-group"
                     dangerouslySetInnerHTML={{ __html: valueQuestionQuill }}
                 />
+                <FiltermathSigns valueQuill={valueQuestionQuill}></FiltermathSigns>
+
                 <Quill
                     getValueQuill={setValueQuestionQuill}
                     setDefaultvalue={valueQuestionQuill}
                     placeHolder="Nội dung câu hỏi"
                 ></Quill>
+                <p className='my-2'>gõ "mathsigns(" để bắt đầu nhập ký tự toán</p>
+                <p className='my-2'>gõ ")" để kết thúc nhập ký tự toán</p>
             </div>
             <div className="my-4 py-3 border-bottom border-dark ">
                 <div className="form-check ">

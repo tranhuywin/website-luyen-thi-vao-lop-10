@@ -28,6 +28,9 @@
     /* box-shadow: 0 0px 0.2px #242323 inset, 0 0 1.5px #242323 !important; */
     outline: 0 none !important;
 }
+.sidenav a i::before{
+    font-weight: bold !important; 
+}
 
 .sidenav a:hover {
     color: rgb(0, 82, 204);
