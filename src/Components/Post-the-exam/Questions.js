@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import TickMultipleChoieAnswer from './TickMultipleChoieAnswer'
-
+import Quill from './Quill'
 export default function Questions(props) {
     const [shouldShowCorrectAnswer, setShouldShowCorrectAnsewer] = useState(false);
+    const [valueQuestionQuill, setValueQuestionQuill] = useState('');
+    const [valueAnswerQuill, setValueAnswerQuill] = useState('');
     function handleShowCorrectAnswer(e) {
         e.preventDefault();
         shouldShowCorrectAnswer ? setShouldShowCorrectAnsewer(false) : setShouldShowCorrectAnsewer(true);
@@ -22,14 +24,24 @@ export default function Questions(props) {
                             <TickMultipleChoieAnswer id={props.number + 'D'} name='D'></TickMultipleChoieAnswer>
                         </div>
                     ) : ''}
+                    {props.isQuillAnswer?<>
+                    <div className='form-group' dangerouslySetInnerHTML={{ __html: valueQuestionQuill }} />
+                    <Quill setValueQuill={setValueQuestionQuill} placeHolder='Nội dung câu hỏi'></Quill>
+                    </>
+                    :''}
                     {shouldShowCorrectAnswer ? <div>
                         <p>Giải: {props.correctAnswer}</p>
                         
                     </div> : ''}
-                    <button class="btn btn-primary mr-2" onClick={handleShowCorrectAnswer}>
+                    {props.isPreview ? 
+                    <div>  
+                        <button class="btn btn-primary mr-2" onClick={handleShowCorrectAnswer}>
                     Xem câu trả lời
                     </button>
                     <a href="/" className="btn btn-primary">Sửa câu hỏi</a>
+                      </div>:'' }
+                   
+                   
                 </div>
             </div>
             

@@ -13,6 +13,7 @@ export default function PreviewTheExam() {
                     question={ramdomTextQuestion}
                     multileChoieAnswers={true}
                     correctAnswer='A'
+                    isPreview = {true}
                 >
                 </Question>
             </div>
@@ -22,6 +23,7 @@ export default function PreviewTheExam() {
                     question={ramdomTextQuestion}
                     multileChoieAnswers={true}
                     correctAnswer='A'
+                    isPreview = {true}
                 >
                 </Question>
             </div><div className='my-2'>
@@ -30,6 +32,7 @@ export default function PreviewTheExam() {
                     question={ramdomTextQuestion}
                     multileChoieAnswers={false}
                     correctAnswer={ramdomTextAnswer}
+                    isPreview = {true}
                 >
                 </Question>
             </div>
