@@ -4,7 +4,6 @@ import Answer from "../../../Components/Post-the-exam/CreateMultipleChoiceAnswer
 import { useHistory, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewQuestion } from "../../../actions/exam";
-import { StaticMathField } from "react-mathquill";
 import FiltermathSigns from './FiltermathSigns';
 
 export default function CreateQuestion() {
@@ -48,19 +47,20 @@ export default function CreateQuestion() {
     const dispatch = useDispatch();
 
     //handle disable prev, next button
-    if (parseInt(questionNumber) <= 1 && !isDisablePrevBtn) {
-        setIsDisablePrevBtn(true);
+    {
+        if (parseInt(questionNumber) <= 1 && !isDisablePrevBtn) {
+            setIsDisablePrevBtn(true);
+        }
+        if (parseInt(questionNumber) > 1 && isDisablePrevBtn) {
+            setIsDisablePrevBtn(false);
+        }
+        if (parseInt(questionNumber) >= exam.listQuestions.length && !isDisableNextBtn) {
+            setIsDisableNextBtn(true);
+        }
+        if (parseInt(questionNumber) < exam.listQuestions.length && isDisableNextBtn) {
+            setIsDisableNextBtn(false);
+        }
     }
-    if (parseInt(questionNumber) > 1 && isDisablePrevBtn) {
-        setIsDisablePrevBtn(false);
-    }
-    if (parseInt(questionNumber) >= exam.listQuestions.length && !isDisableNextBtn) {
-        setIsDisableNextBtn(true);
-    }
-    if (parseInt(questionNumber) < exam.listQuestions.length && isDisableNextBtn) {
-        setIsDisableNextBtn(false);
-    }
-
     //handle value of title
     const titleExam = useSelector((state) => state.exam.titleExam);
     //!titleExam && history.push("/dien-thong-tin-de");
@@ -239,8 +239,9 @@ export default function CreateQuestion() {
                     setDefaultvalue={valueQuestionQuill}
                     placeHolder="Nội dung câu hỏi"
                 ></Quill>
-                <p className='my-2'>gõ "mathsigns(" để bắt đầu nhập ký tự toán</p>
-                <p className='my-2'>gõ ")" để kết thúc nhập ký tự toán</p>
+                <p className='my-2'>Gõ "mathsigns(" để bắt đầu nhập ký tự toán</p>
+                <p className='my-2'>Gõ ")" để kết thúc nhập ký tự toán</p>
+                <a href='http://mathquill.com/' target="_blank" rel="noreferrer">Các cú pháp viết ký tự toán</a>
             </div>
             <div className="my-4 py-3 border-bottom border-dark ">
                 <div className="form-check ">
