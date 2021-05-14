@@ -1,0 +1,15 @@
+.headingToast {
+    background: rgb(110, 102, 246);
+    background: linear-gradient(
+        90deg,
+        rgba(110, 102, 246, 1) 48%,
+        rgba(209, 0, 166, 1) 93%
+    );
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    color: #d3d9df;
+    display: flex;
+}
+.bodyToast {
+    background-color: #43a047;
+}

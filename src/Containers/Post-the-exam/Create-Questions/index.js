@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewQuestion } from "../../../actions/exam";
 import FiltermathSigns from './FiltermathSigns';
+import Toast from '../../../Components/Toast-react-bootstrap';
 
 export default function CreateQuestion() {
     handleRefresh();
@@ -32,7 +33,7 @@ export default function CreateQuestion() {
         }
 
     }
-
+    const [toastShow, setToastShow] = useState(false);
     const [valueQuestionQuill, setValueQuestionQuill] = useState(valueQuestionQuillInit);
     const [valueAnswerQuill, setValueAnswerQuill] = useState(valueAnswerQuillInit);
     const [idCorrectAnswer, setIdCorrectAnswer] = useState(idCorrectAnswerInit);
@@ -141,8 +142,8 @@ export default function CreateQuestion() {
         setPoint(pointInit);
         setIsMuilpleChoieAnswer(isMuilpleChoieAnswerInit);
     }
-
     function hanldSaveQuestion() {
+        setToastShow(true);
         const newExam = {
             number: parseInt(questionNumber),
             point: parseInt(point),
@@ -158,6 +159,11 @@ export default function CreateQuestion() {
         };
         const action = addNewQuestion(newExam);
         dispatch(action);
+        setTimeout(setStateToast, 3000);
+    }
+
+    function setStateToast(){
+        setToastShow(false);
     }
 
     function handlePreviousQuestion() {
@@ -311,6 +317,8 @@ export default function CreateQuestion() {
                     placeHolder="Nội dung hướng dẫn giải đề"
                 ></Quill>
             </div>
+       
+            <Toast heading= 'Thông báo' body='Bạn đã lưu thành công' isShow={toastShow}></Toast>
             <div className="form-inline mb-3">
                 <button
                     type="button"
