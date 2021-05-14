@@ -6,7 +6,7 @@ const initialState = {
     subjects: null,
     format: null,
     schoolYear: null,
-    listQuestions:[],
+    listQuestions: [],
     /*
     listQuestions: [{
         number: 1,
@@ -77,11 +77,22 @@ const examReducer = (state = initialState, action) => {
         case 'ADD_QUESTION': {
             const newList = [...state.listQuestions];
             newList.push(action.payload);
-           //ToDo: Save exam
-            return {
-                ...state,
-                listQuestions: newList,
-            };
+            let numberQuestionSimilar = -1;
+            state.listQuestions.map((question, index) => {
+                question.number === action.payload.number && (numberQuestionSimilar = (index + 1));
+            });
+            if (numberQuestionSimilar != -1) {
+                state.listQuestions[numberQuestionSimilar - 1] = action.payload;
+                return {
+                    ...state
+                }
+            } else {
+                return {
+                    ...state,
+                    listQuestions: newList,
+                };
+            }
+
         }
         case 'ADD_DETAIL_EXAM': {
             const exam = {

@@ -45,7 +45,7 @@ function App() {
 								<Route path='/dien-thong-tin-de' exact component={FillInExamInformation}></Route>
 								<Route path='/duyet-de' exact component={PostToTheWebsite}></Route>
 								<Route path='/ho-so' exact component={Profile}></Route>
-								<Route path='/luyen-thi' exact component={TakeExam}></Route>
+								<Route path='/luyen-thi' exact component={TakeExam}></Route>					
 							</Switch>
 						</div>
 					</div>
