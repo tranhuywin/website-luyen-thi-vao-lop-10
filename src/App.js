@@ -4,6 +4,7 @@ import PreviewTheExam from './Containers/Post-the-exam/Preview-the-exam';
 import FillInExamInformation from './Containers/Post-the-exam/Fill-in-exam-information';
 import PostToTheWebsite from './Containers/Post-the-exam/Post-to-the-website';
 import TakeExam from './Containers/TakeExam';
+import DoTest from './Containers/TakeExam/DoTest';
 import Profile from './Containers/Profile';
 import Login from './Containers/Login';
 import SideNav from './Containers/SideNav';
@@ -45,7 +46,8 @@ function App() {
 								<Route path='/dien-thong-tin-de' exact component={FillInExamInformation}></Route>
 								<Route path='/duyet-de' exact component={PostToTheWebsite}></Route>
 								<Route path='/ho-so' exact component={Profile}></Route>
-								<Route path='/luyen-thi' exact component={TakeExam}></Route>					
+								<Route path='/luyen-thi' exact component={TakeExam}></Route>			
+								<Route path='/luyen-thi/lam-bai-thi/:idExam' exact component={DoTest}></Route>			
 							</Switch>
 						</div>
 					</div>
