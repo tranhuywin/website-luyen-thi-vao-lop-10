@@ -12,25 +12,30 @@ export default function Questions(props) {
     }
 
     return (
-        <>
             <div className="card" >
-                <h5 className="card-header">Câu {props.number} ({props.point})</h5>
+                <h5 className="card-header">Câu {props.number} ({props.point} đ)</h5>
                 <div className="card-body">
                     <h5 className="card-title" dangerouslySetInnerHTML={{ __html: props.question }}></h5>
                     <h4><FiltermathSigns valueQuill={props.question}></FiltermathSigns></h4>
                     {props.isMulipleChoiceAnswer && (
                         <div>
                             <p>Câu trả lời:</p>
-                            {props.multileChoieAnswers.map((answer) => {
-                                return <TickMultipleChoieAnswer id={props.number + answer.ID} name={answer.ID} value={answer.content}></TickMultipleChoieAnswer>
+                            {props.multileChoieAnswers.map((answer, index) => {
+                                return <TickMultipleChoieAnswer 
+                                key={index}
+                                id={props.number + answer.ID} 
+                                name={answer.ID} 
+                                nameRadio={props.number}
+                                value={answer.content}
+                                onClickAnswer={props.onChangeAnswer}/>
                             })}
                         </div>
 
                     )}
-                    {props.isQuillAnswer && <>
+                    {props.isQuillAnswer && <div>
                     <div className='form-group' dangerouslySetInnerHTML={{ __html: valueQuestionQuill }} />
-                    <Quill setValueQuill={setValueQuestionQuill} placeHolder='Nội dung câu hỏi'></Quill>
-                    </>
+                    <Quill setValueQuill={setValueQuestionQuill} placeHolder='Nội dung câu trả lời'></Quill>
+                    </div>
                     }
 
                     {shouldShowCorrectAnswer ? <div>
@@ -47,8 +52,6 @@ export default function Questions(props) {
                       </div>}             
                 </div>
             </div>
-
-        </>
     )
 }
 

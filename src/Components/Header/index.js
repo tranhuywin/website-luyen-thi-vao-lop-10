@@ -9,7 +9,7 @@ const Header = ({onClickOpenProfile}) => {
             <nav className={Styles.HeaderNav}>
                 <div className={Styles.HeaderNavBrand}>
                     Luyện thi vào lớp 10
-                </div>
+                </div> 
                 <div className={Styles.HeaderNavRight}>
                     {!isAuth && user && <div className={Styles.HeaderNavRightJoinButton} onClick={onClickOpenProfile}>
                      <img className={Styles.avatar}src={user.photoUrl}></img>   

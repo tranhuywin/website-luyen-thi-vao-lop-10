@@ -13,7 +13,7 @@ const Item = ({ name, handleClickBtn, linkItem, textBtn }) => {
 				</Link>
 			</div>
 			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-				<button className="m-2 btn btn-primary" onClick={handleClickBtn}>
+				<button className="m-2 btn-two" onClick={handleClickBtn}>
 					{textBtn}
           </button>
 			</div>
