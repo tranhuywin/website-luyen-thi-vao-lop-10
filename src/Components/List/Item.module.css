@@ -1,0 +1,30 @@
+.Item {
+    border-bottom: 1px solid rgb(216, 216, 216);
+    align-items: center;
+    margin: 5px;
+    transition: 0.5s;
+    vertical-align: middle;
+    padding: 1rem 1rem;
+    white-space: nowrap;
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+.Item:hover {
+    box-shadow: 0 4px 2px -2px rgba(116, 119, 116, 0.6);
+}
+.ItemLink {
+    color: black;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    font-weight: 400;
+    transition: color 0.3s cubic-bezier(0.11, 0.7, 0, 1);
+}
+.ItemLink:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;     
+}
+
