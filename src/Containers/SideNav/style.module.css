@@ -1,6 +1,6 @@
 .sidenav {
     height: 100%;
-    width: 200px;
+    width: 300px;
     position: fixed;
     z-index: 100;
     top: 0;
@@ -17,13 +17,13 @@
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 24px;
     color: #4a5568;
     display: block;
     transition: 0.3s;
-   
+
+    padding: 1rem 1.5rem;
     /* border-bottom: #242323 solid 0.2px; */
     /* box-shadow: 0 0px 0.2px #242323 inset, 0 0 1.5px #242323 !important; */
     outline: 0 none !important;
@@ -50,7 +50,7 @@
 
 .closenav {
     /* width: 0px; */
-    left: -200px;
+    left: -300px;
     margin-left: 0px;
     background-color: #4f88a0;
 }

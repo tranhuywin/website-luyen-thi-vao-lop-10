@@ -12,8 +12,7 @@ const VerticallyCenteredModal = (props) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>
-                    {props.body}
+                <p dangerouslySetInnerHTML={{__html: props.body}}>
                 </p>
             </Modal.Body>
             <Modal.Footer>
