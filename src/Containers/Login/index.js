@@ -13,27 +13,7 @@ function Login() {
 
     function handleLogin(e) {
         e.preventDefault();
-        firebase.collection("users").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                const user = {
-                    username: e.target.email.value,
-                    password: e.target.password.value
-                }
-                if (doc.data().username === user.username) {
-                    if (doc.data().password === user.password) {
-                        history.push('/');
-                    }
-                    else {
-                        console.log('wrong password');
-                    }
-
-                }
-                else {
-                    console.log('user isnt avaliable');
-                }
-
-            });
-        });
+        alert("Xin lỗi, chức năng này chưa hoàn thành! Vui lòng đăng nhập bằng tài khoản google");
     }
 
     function handleLoginWithGoogle() {

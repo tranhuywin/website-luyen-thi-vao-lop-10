@@ -67,8 +67,8 @@ button:disabled:hover {
     transition: all 0.2s;
 }
 input {
-    color: #232323 !important;
-    background-color: #fffffe !important;
+    /* color: #232323 !important;
+    background-color: #fffffe !important; */
 }
 input:focus,
 textarea:focus,

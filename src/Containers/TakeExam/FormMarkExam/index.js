@@ -9,7 +9,8 @@ function FormMarkExam() {
     const [exam, setExam] = useState(null);
     const [contentModal, setContentModal] = useState(null);
     const [isShowModal, setisShowModal] = useState(false);
-    const [answerStudent, setanswerStudent] = useState(null);
+    const answerStudent = JSON.parse(localStorage.getItem('answersStudent'));
+    //const [answerStudent, setanswerStudent] = useState(null);
     const handleClose = () => setisShowModal(false);
     const handleShow = () => setisShowModal(true);
     //console.log(answerStudent);
@@ -21,11 +22,15 @@ function FormMarkExam() {
         async function fetchdata() {
             const snapshot = await GetAllDataInCollection('/exams');
             snapshot.forEach((doc) => {
-                if (doc.id === idExam)
+                 if(doc.id === idExam) 
+                {
+                    //console.log('set answer');
                     setExam(doc.data());
+                } 
+                    console.log(idExam);
             });
         }
-        setanswerStudent(JSON.parse(localStorage.getItem('answersStudent')));
+        //setanswerStudent(JSON.parse(localStorage.getItem('answersStudent')));
         fetchdata();
     }, [])
     return (

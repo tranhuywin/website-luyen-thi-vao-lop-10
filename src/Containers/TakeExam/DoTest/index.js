@@ -17,6 +17,14 @@ export default function DoTest() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     let mark = 0;
+    const StylesTitle = {
+        display: 'inline-block',
+        padding: '1rem',
+        color: '#697b92',
+        textAlign: 'center',
+        backgroundColor: '#rgb(38 40 43)',
+        borderRadius: '1rem'
+    }
     function handleStudentAnswer(e, idRadio, questionNumber) {
         if (e.target.type === 'radio') {
             answer.map((value, index) => {
@@ -26,14 +34,14 @@ export default function DoTest() {
         }
         setAnswer([...answer]);
     }
-    console.log(answer);
+    //console.log(answer);
     function handleSubmitExam() {
         answer.map((value, index) => {
             if (exam.listQuestions[index].isMulipleChoiceAnswer && value.studentAnswer === exam.listQuestions[index].correctAnswer.multileChoieAnswers) {
                 mark += exam.listQuestions[index].point;
             }
         })
-        console.log(answer);
+        //console.log(answer);
         localStorage.setItem('answersStudent', JSON.stringify(answer));
         history.push(`/luyen-thi/lam-bai-thi/${idExam}/cham-diem`);
     }
@@ -42,13 +50,15 @@ export default function DoTest() {
         async function fetchdata() {
             const snapshot = await GetAllDataInCollection('/exams');
             snapshot.forEach((doc) => {
-                if (doc.id === idExam)
+                if (doc.id === idExam) {
                     setExam(doc.data());
-                const innitArrayAnswer = [];
-                doc.data() && doc.data().listQuestions.map(() => {
-                    innitArrayAnswer.push({ studentAnswer: null });
-                })
-                setAnswer(innitArrayAnswer);
+                    const innitArrayAnswer = [];
+                    doc.data() && doc.data().listQuestions.map(() => {
+                        innitArrayAnswer.push({ studentAnswer: null });
+                        console.log(doc.data().titleExam);
+                    })
+                    setAnswer(innitArrayAnswer);
+                }
             });
         }
         fetchdata();
@@ -58,7 +68,7 @@ export default function DoTest() {
         <div>
             {!exam && <LineLoading></LineLoading>}
 
-            <h2>{exam && exam.titleExam}</h2>
+            <h2 style={StylesTitle}>{exam && exam.titleExam}</h2>
             {exam && exam.listQuestions.map((question, index) => {
                 return (<div className="my-2" key={index}>
                     <Question
@@ -77,9 +87,9 @@ export default function DoTest() {
 
 
 
-            <Button variant="primary" onClick={handleShow}>
-                Hoàn thành
-            </Button>
+            <button className="btn-one my-3" style={{float: 'right', fontSize:'20px'}} onClick={handleShow}>
+            <i className="bi bi-check2-square"></i> Hoàn thành
+            </button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Hoàn thành bài thi</Modal.Title>

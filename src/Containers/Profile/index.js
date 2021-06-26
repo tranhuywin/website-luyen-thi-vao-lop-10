@@ -1,5 +1,6 @@
 import Styles from './profile.module.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Profile({ isOpen }) {
     const [isOpenSideNav, setIsOpenSidenav] = useState(isOpen);
@@ -21,10 +22,10 @@ export default function Profile({ isOpen }) {
                         <i className="bi bi-envelope"></i><span>{user?.email}</span><i className={"bi bi-pencil " + Styles.iconEdit}></i>
                     </div>
                     <div>
-                        <i className="bi bi-envelope"></i><span>Mật khẩu: *****</span><i className={"bi bi-pencil " + Styles.iconEdit}></i>
+                        <i className="bi bi-envelope"></i><span>Mật khẩu: *******</span><i className={"bi bi-pencil " + Styles.iconEdit}></i>
                     </div>
                     <div>
-                    <i className="bi bi-clock-history"></i><span>Lịch sử làm bài</span>
+                    <i className="bi bi-clock-history"></i><Link to='/bang-diem'>Lịch sử làm bài</Link>
                 </div>
                 </div>
 

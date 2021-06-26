@@ -10,7 +10,8 @@ export default function SideNav({ isOpen }) {
    
     function hanldeLogOut() {
         localStorage.removeItem('_User');
-        history.go('/');
+        history.replace('/dang-nhap');
+        //history.goForward('/');
         setUser(null);
     }
     return (

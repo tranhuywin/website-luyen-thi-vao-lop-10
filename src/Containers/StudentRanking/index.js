@@ -36,7 +36,7 @@ export default function StudentRanking() {
                         <td>THPT chuyên Phan Đình Phùng</td>
                         <td>9/10</td>
                         <td>
-                            <div className={Styles.tag}>12 ngày trước</div>
+                            <div className={Styles.tag}>1 ngày trước</div>
                         </td>
                         <td>
                             <div className={Styles.link}>

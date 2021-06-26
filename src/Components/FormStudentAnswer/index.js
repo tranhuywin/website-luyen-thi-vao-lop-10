@@ -1,9 +1,8 @@
 import Styles from './FormStudentAnswer.module.css'
 import Item from './Items';
-import { useState } from 'react';
 
 const FormStudentAnswer = ({ listQuestions, listAnsewerStudent, onClickShowAnswer }) => {
-    const [mark, setMark] = useState(0);
+    let mark = 0;
     return (
         <div>
             <table className='table table-striped'>
@@ -18,7 +17,7 @@ const FormStudentAnswer = ({ listQuestions, listAnsewerStudent, onClickShowAnswe
                 <tbody >
                     {listQuestions && listAnsewerStudent && listQuestions.map((question, index) => {
                         const iscorrect = listAnsewerStudent[index].studentAnswer === question.correctAnswer.multileChoieAnswers;
-                        iscorrect && setMark(mark + parseInt(question.point));
+                        iscorrect && (mark = (mark + parseInt(question.point)));
                         return <Item
                             key={index}
                             number={question.number}
@@ -33,7 +32,7 @@ const FormStudentAnswer = ({ listQuestions, listAnsewerStudent, onClickShowAnswe
                     })}
                 </tbody>
             </table>
-            <label>Tổng điểm: <strong>{mark}</strong></label>
+            <label style={{fontSize: '24px'}}>Tổng điểm: <strong>{mark}/10 điểm</strong></label>
 
         </div>
     )

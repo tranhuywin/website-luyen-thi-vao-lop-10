@@ -1,7 +1,9 @@
+import Styles from './TickMultipleChoieAnswer.module.css';
+
 export default function TickMultipleChoieAnswer(props) {
     return (
         <div className="form-group form-check">
-            <input className="form-check-input" 
+            <input className={Styles.optionInput + ' ' + Styles.radio}
             type="radio" 
             name={props.nameRadio} 
             onChange={(e) => props.onClickAnswer(e, props.name, props.nameRadio)} 
